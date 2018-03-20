@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>inspector</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<script type="text/javascript" src="js/cross-domain.js"></script>
+	<script type="text/javascript">
+		function echo(s){
+			console.log(s);
+		}
+	</script>
+	
+	
+	
+	<link rel="stylesheet" href="styles/default.css">
+	<script src="js/highlight.pack.js"></script>
+	<script type="text/javascript">hljs.initHighlightingOnLoad();</script>
+
+</head>
+
+<body>
+	<div id="main">
+		<span>Click Me-></span>
+		<button id=btn> button </button>
+	</div> 
+	<il></il>
+	<nav id="tool-panels">
+		<div id="extracted-items-group" class="ember-view tool-group">
+			<header class="tool-group-header">
+				<ul>
+					<li> Inspector View
+					</li>
+					<li> ???
+					</li>
+				</ul>
+			</header>
+			<section class="tool-group-content">
+				<div id="inspector-div">
+					<textarea id="pathToast"> </textarea><br/>
+					<!-- cols:width  rows:height -->
+					<!--
+					<textarea id="htmlInspec" cols="55" rows="10">
+					<pre>
+					 <code  class="javascript">
+					  window.isInspectorOpen = false;
+					  var sourceEle = window.document.getElementById('btn'); 
+					 </code>
+					</pre>
+					</textarea>
+					--> 
+					<div id="htmlInspec" width="300px" height="500px" style="display:block;"> <!-- contenteditable="true" -->
+						<pre> <code id="htmlInspecCode" ><!--本来这有bug，去掉 class=html 后，问题消失 -->
+  &lt;html&gt;
+&lt;/html&gt;  
+						</code>  </pre>
+					</div>  
+				</div>
+				<div>
+				</div>
+			</section>
+		</div>
+	</nav>
+	<pre>
+		<code class="javascript">
+		</code>
+	</pre>
+	<script type="text/javascript" src="js/bundle.js"></script>
+	
+</body>
+
+</html>
