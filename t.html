@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>index.html </title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<style> 
+		.inspecLine { 
+			//font-weight:bold;
+			font-size:12px;
+			font-family:Menlo,Monaco,Consolas,"Andale Mono","lucida console","Courier New",monospace; /*font:12px Tahoma*/
+			margin: 0;
+			padding: 0;
+			display: block;
+			/* list-style-type:none; */
+			background:#FFF;
+		}
+		/*点击tag后的状态和点击后在上面hover*/
+		.inspecLine:focus, .inspecLine:focus:hover{
+			color		:#FFF ;
+			background	:#3385FF;	//navy-like color
+		} 
+		.inspecLine:hover{ 
+			background	:#aed6f1 ; 
+		}
+		.inspecExtenableLine_closed{
+			background-image: url(InspecExtenableLine_closed.png);	/*  url(../imgs/cfile.png);上一级目录下名文件夹的cfile */	
+			/* background-position: left;  */
+			background-repeat:no-repeat;
+		}
+		.inspecExtenableLine_open{ 
+			background-image: url(InspecExtenableLine_open.png);	/*  url(../imgs/cfile.png);上一级目录下名文件夹的cfile */	
+			background-repeat:no-repeat;
+		}
+		.inspecNoneLine{
+			display: none;
+		}
+		.inspecTagName{
+			color		:#07a ;  
+		}
+		.inspecAttrName{
+			color		:#DD4A68 ; 
+		}
+		.inspecAttrValue{
+			color		:navy ; 
+		}
+	</style>
+</head>
+
+<body>
+	<div id="displayBoard" class="inspecExtenableLine" att="2sx">
+	</div> 
+	<script type="text/javascript"> 
+	function bindEventOnInspecLines (){ 
+		//获取文档中所有class为inspecLine的标签
+		var inspecLineCollection = document.getElementsByClassName("inspecLine") ; 
+		for( let i=0; i<inspecLineCollection.length; i++){		 
+			let dom = inspecLineCollection[i];
+			//绑定点击变化（由css设定到白色）事件
+			dom.onmousedown = function(){
+				childrenDoms = dom.children;
+				for(let j = 0 ; j < childrenDoms.length; j++){  
+				  if (childrenDoms[j].style.color  == "rgb(255, 255, 255)" || childrenDoms[j].style.color == "#FFF") {	//inspecLine已经被选择时候再点击
+					// do nothing 
+				  } else {										//inspecLine第一次被选择
+					childrenDoms[j].oldColor = childrenDoms[j].style.color ;
+				  }  
+				  childrenDoms[j].style.color = "#FFF";
+				}
+			} 	
+			//绑定点击变化事件：当焦点从被点击的上面移开时候，恢复原有颜色
+			dom.onblur = function(){
+				childrenDoms = dom.children;
+				for(let j = 0 ; j < childrenDoms.length; j++){ 
+				  childrenDoms[j].style.color = childrenDoms[j].oldColor;
+				}
+			}  
+			/*** TODO: 绑定事件 ***/
+			dom.ondblclick = function(){};
+		}
+	}
+		
+	</script> 
+	
+	<script type="text/javascript">
+	//建立标签元素的html表现形式
+	function buildInspectorHtmlString(htmlDocArr) {
+		var htmlstring = '';
+		htmlDocArr.forEach( function(item){ //这里必须是item->代表当前元素
+			//div
+			htmlstring += '<div class="inspecLine" tabindex="1">';
+			//space
+			for (let i=0; i<item.level; i++) {
+				htmlstring += "&nbsp;"; 
+			}
+			//tagname
+			htmlstring += '<<span class="inspecTagName">';
+			htmlstring += item.tagName.toLocaleLowerCase();
+			htmlstring += '</span>';
+			//attributes 
+			let attrsArr = [...item.attributes];
+			for(let i=0; i<attrsArr.length; i++){
+				//attributes name
+				htmlstring += '\n<span class="inspecAttrName">';
+				htmlstring += attrsArr[i].name;
+				htmlstring += '</span>';
+				//'='
+				htmlstring += '=';
+				//attributes value
+				htmlstring += '<span class="inspecAttrValue">';
+				htmlstring += '"'+attrsArr[i].value+'"';
+				htmlstring += '</span>';
+			} 
+			htmlstring += '>\n';
+			htmlstring += '</div>';
+		});
+		return htmlstring ;
+	}
+	function showInspector(inspectorHtmlString) {
+		var bcd = document.getElementById('displayBoard');
+		bcd.innerHTML = inspectorHtmlString;
+	}
+	</script>
+	<div>
+		<h1> H1
+		</h1>
+		<p>
+		asdasdasdsadasdas<br/>
+		SDASDSADASDAS<br/>
+		</p>
+	</div>
+</body>
+	<footer>
+	</footer>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

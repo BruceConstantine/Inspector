@@ -1,0 +1,52 @@
+<html>
+  <head>
+	<meta charset=utf-8 />
+    <style type="text/css">
+		#blueP{
+			color	:	blue;
+		}
+        #blueP p {
+             /* 权值 = 100+1=101 */
+             color:green;  /* 绿色 */
+        } 
+        #blueP .blue em {
+             /* 权值 = 100+10+1=111 */
+             color:black; /* 黑色 */
+ 
+        } 
+        .red {
+             /* 权值 = 10 */
+             color:red; /* 深蓝色 */
+ 
+        }
+		/*
+		对于相同类型选择器制定的样式，在样式表文件中，越靠后的优先级越高
+		注意，这里是样式表文件中越靠后的优先级越高，而不是在元素class出现的顺序。
+		*/		
+        .black{
+             /* 权值 = 10 但是，.black在 .red的后面，因此要 >10 */
+             color:#FFFF66; /* 白黄色 */
+ 
+        } 
+        #blueP p span em {
+             /* 权值 = 100+1+1+1=103 */
+             color:#FF0;/*黄色*/
+        }
+    </style>
+  </head>
+  <body>
+     <div id="blueP"> 
+		这是层叠样式表CSS的选择器的优先级规则（优先级高的可以覆盖低的） 
+		<p class="blue">blue
+           <span><em>em blue</em></span>
+			<!-- 这里权值最高，内联权值为1000 -->
+           <span><em style="color:gray">gray</em></span>
+        </p>
+        <p>green</p>
+		<p class="red">RED</p> <!-- blueP p -->
+     </div>
+	 <p class="red">RED</p>
+	 <p class="red black" >RED</p><!-- 这里尽管两个都出现了，但是还是会显示为black，因为.black定义在.red的后面 -->
+	 <span>规则是:<div style="padding:0 0 0 10px; margin:0">内联选择器(style="display:XXX")权值为1000<br/>id选择器的优先级为100<br/> class选择器优先级为10 <br/>HTML标签名选择器为1</div></span>
+  </body>
+</html>
